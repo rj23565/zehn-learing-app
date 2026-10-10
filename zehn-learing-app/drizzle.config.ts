@@ -1,0 +1,17 @@
+import { defineConfig } from "drizzle-kit";
+import { config as loadEnv } from "dotenv";
+
+loadEnv({ quiet: true });
+
+const databaseUrl =
+  process.env.DATABASE_URL ??
+  "postgresql://postgres:postgres@127.0.0.1:5432/app_db";
+
+export default defineConfig({
+  dialect: "postgresql",
+  schema: "./src/db/schema.ts",
+  out: "./drizzle",
+  dbCredentials: {
+    url: databaseUrl,
+  },
+});
